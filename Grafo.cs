@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace GrafoLab
 {
-
-
     public class Grafo
     {
         private int _numeroVertices;
@@ -53,24 +51,6 @@ namespace GrafoLab
                 }
                 Console.WriteLine();
             }
-        }
-    }
-
-    // Exemplo de uso
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            Grafo grafo = new Grafo(5);
-            grafo.AdicionarAresta(0, 1);
-            grafo.AdicionarAresta(0, 4);
-            grafo.AdicionarAresta(1, 2);
-            grafo.AdicionarAresta(1, 3);
-            grafo.AdicionarAresta(1, 4);
-            grafo.AdicionarAresta(2, 3);
-            grafo.AdicionarAresta(3, 4);
-
-            grafo.MostrarGrafo();
         }
     }
 }
