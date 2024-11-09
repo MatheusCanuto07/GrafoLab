@@ -6,9 +6,11 @@ namespace GrafoLab
         for (int i = 0; i < grafo._numeroVertices; i++)
         {
           Console.Write($"Vértice {i}: ");
-          foreach (var vertice in grafo._listaAdjacencia[i])
-          {
-            Console.Write($"{vertice} ");
+          if(grafo._listaAdjacencia[i] != null){
+            foreach (var vertice in grafo._listaAdjacencia[i])
+            {
+              Console.Write($"{vertice} ");
+            }
           }
           Console.WriteLine();
         }
