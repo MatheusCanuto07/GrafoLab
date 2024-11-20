@@ -24,6 +24,13 @@ namespace PUCGrafos.domain.Saida
             ResultadoBusca[] resultado = this.grafo.GetResultadoBuscaEmLargura();
         }
 
+        public void ImprimirCaminhoEuleriano()
+        {
+            List<int> caminho = grafo.GetCaminhoEuleriano();
+            // Implementar método para impressão
+            throw new NotImplementedException();
+        }
+
         public void ImprimirDFS()
         {
             ResultadoBusca[] resultado = this.grafo.GetResultadoBuscaEmProfundidade();
@@ -33,6 +40,24 @@ namespace PUCGrafos.domain.Saida
                 string rotulo = this.grafo.Vertices[item.IdVertice].GetRotulo();
                 string rotuloPai = (item.IdPai != Constantes.VerticeInexistente) ? this.grafo.Vertices[item.IdPai].GetRotulo() : "Ø";
                 Console.WriteLine($"|{rotulo}|TD: {item.Descoberta}; TT: {item.Termino}; Pai: {rotuloPai}");
+            }
+        }
+
+        public void ImprimirPontesPorNaive()
+        {
+            List<(int,int)> pontes = grafo.BuscaPontesNaive();
+
+            foreach (var ponte in pontes) {
+                Console.WriteLine($"({ponte.Item1}, {ponte.Item2})");
+            }
+        }
+
+        public void ImprimirPontesPorTarjan()
+        {
+            List<(int,int)> pontes = grafo.BuscaPontesTarjan();
+
+            foreach (var ponte in pontes) {
+                Console.WriteLine($"({ponte.Item1}, {ponte.Item2})");
             }
         }
 
