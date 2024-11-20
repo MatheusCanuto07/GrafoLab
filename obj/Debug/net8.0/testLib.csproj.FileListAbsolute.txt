@@ -1,0 +1,14 @@
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/bin/Debug/net8.0/testLib
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/bin/Debug/net8.0/testLib.deps.json
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/bin/Debug/net8.0/testLib.runtimeconfig.json
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/bin/Debug/net8.0/testLib.dll
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/bin/Debug/net8.0/testLib.pdb
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/testLib.GeneratedMSBuildEditorConfig.editorconfig
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/testLib.AssemblyInfoInputs.cache
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/testLib.AssemblyInfo.cs
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/testLib.csproj.CoreCompileInputs.cache
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/testLib.dll
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/refint/testLib.dll
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/testLib.pdb
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/testLib.genruntimeconfig.cache
+/home/matheuscanuto07/projects/faculdade/grafos/testLib/obj/Debug/net8.0/ref/testLib.dll
