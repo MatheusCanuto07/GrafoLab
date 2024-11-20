@@ -16,5 +16,9 @@ namespace PUCGrafos.domain.interfaces
 
         void ImprimirBFS();
 
+        void ImprimirPontesPorNaive();
+
+        void ImprimirPontesPorTarjan();
+
     }
 }

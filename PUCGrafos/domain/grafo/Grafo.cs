@@ -28,6 +28,9 @@ namespace PUCGrafos.domain.grafo
         protected IBuscaEmGrafo ObjBuscaEmProfundidade;
         protected IBuscaEmGrafo ObjKosaraju;
 
+        protected PonteNaive ObjBuscaPontesNaive;
+        protected PonteTarjan ObjBuscaPontesTarjan;
+
         public Grafo(int NumVertices) {
             InicializaMembros(NumVertices);
 
@@ -61,10 +64,23 @@ namespace PUCGrafos.domain.grafo
             return grafo;
         }
 
-        public void AdicionarAresta(int IdOrigem, int IdDestino, int Peso = 0)
+        public Grafo GetCopia() {
+            Grafo copia = IsDirecionado() ? new GrafoDirecionado(Vertices.Length) : new GrafoNaoDirecionado(Vertices.Length);
+
+            foreach (string key in Arestas.Keys)
+            {
+                copia.AdicionarAresta(Arestas[key].GetIdOrigem(), Arestas[key].GetIdDestino(), 0, true);
+            }
+
+            return copia;
+        }
+
+        public void AdicionarAresta(int IdOrigem, int IdDestino, int Peso = 0, bool ja_convertidos = false)
         {
-            IdOrigem  = Utilidades.GetIDVerticeInterno(IdOrigem);
-            IdDestino = Utilidades.GetIDVerticeInterno(IdDestino);
+            if (!ja_convertidos) {
+                IdOrigem  = Utilidades.GetIDVerticeInterno(IdOrigem);
+                IdDestino = Utilidades.GetIDVerticeInterno(IdDestino);
+            }
 
             if (!VerticeValido(IdOrigem) || !VerticeValido(IdDestino))
             {
@@ -103,11 +119,12 @@ namespace PUCGrafos.domain.grafo
 
         }
 
-        public void RemoverAresta(int IdOrigem, int IdDestino)
+        public void RemoverAresta(int IdOrigem, int IdDestino, bool ja_convertidos = false)
         {
-
-            IdOrigem  = Utilidades.GetIDVerticeInterno(IdOrigem);
-            IdDestino = Utilidades.GetIDVerticeInterno(IdDestino);
+            if (!ja_convertidos) {
+                IdOrigem  = Utilidades.GetIDVerticeInterno(IdOrigem);
+                IdDestino = Utilidades.GetIDVerticeInterno(IdDestino);
+            }
 
             if (!VerticeValido(IdOrigem) || !VerticeValido(IdDestino))
             {
@@ -174,10 +191,12 @@ namespace PUCGrafos.domain.grafo
             this.Arestas[key].SetRotulo(rotulo);
         }
 
-        public bool VerificaAdjacenciaEntreVertices(int IdVerticeA, int IdVerticeB)
+        public bool VerificaAdjacenciaEntreVertices(int IdVerticeA, int IdVerticeB, bool ja_convertidos = false)
         {
-            IdVerticeA = Utilidades.GetIDVerticeInterno(IdVerticeA);
-            IdVerticeB = Utilidades.GetIDVerticeInterno(IdVerticeB);
+            if (!ja_convertidos) {
+                IdVerticeA = Utilidades.GetIDVerticeInterno(IdVerticeA);
+                IdVerticeB = Utilidades.GetIDVerticeInterno(IdVerticeB);
+            }
 
             if (!VerticeValido(IdVerticeA) || !VerticeValido(IdVerticeB))
             {
@@ -187,10 +206,12 @@ namespace PUCGrafos.domain.grafo
             return ( this.MatrizAdjacencia[IdVerticeA, IdVerticeB] != Constantes.ArestaInexistente );
         }
 
-        public bool VerificaAdjacenciaEntreArestas(int IdOrigemA, int IdDestinoA, int IdOrigemB, int IdDestinoB)
+        public bool VerificaAdjacenciaEntreArestas(int IdOrigemA, int IdDestinoA, int IdOrigemB, int IdDestinoB, bool ja_convertidos = false)
         {
-            IdOrigemA = Utilidades.GetIDVerticeInterno(IdOrigemA);
-            IdDestinoA = Utilidades.GetIDVerticeInterno(IdDestinoA);
+            if (!ja_convertidos) {
+                IdOrigemA = Utilidades.GetIDVerticeInterno(IdOrigemA);
+                IdDestinoA = Utilidades.GetIDVerticeInterno(IdDestinoA);
+            }
 
             if (!VerticeValido(IdOrigemA)  || 
                 !VerticeValido(IdDestinoA) ||
@@ -214,10 +235,12 @@ namespace PUCGrafos.domain.grafo
             );
         }
 
-        public bool VerificaExistenciaAresta(int IdOrigem, int IdDestino)
+        public bool VerificaExistenciaAresta(int IdOrigem, int IdDestino, bool ja_convertidos = false)
         {
-            IdOrigem = Utilidades.GetIDVerticeInterno(IdOrigem);
-            IdDestino = Utilidades.GetIDVerticeInterno(IdDestino);
+            if (!ja_convertidos) {
+                IdOrigem = Utilidades.GetIDVerticeInterno(IdOrigem);
+                IdDestino = Utilidades.GetIDVerticeInterno(IdDestino);
+            }
 
             if (!VerticeValido(IdOrigem) || !VerticeValido(IdDestino))
             {
@@ -287,6 +310,28 @@ namespace PUCGrafos.domain.grafo
             return this.ResultadoBuscaEmProfundidade;
         }
 
+        public List<(int,int)> BuscaPontesNaive() {
+            List<(int,int)> pontes = new();
+
+            foreach (var e in this.ObjBuscaPontesNaive.EncontrarPontes())
+            {
+                pontes.Add((Utilidades.GetIDVerticeExterno(e.Item1), Utilidades.GetIDVerticeExterno(e.Item2)));
+            }
+
+            return pontes;
+        }
+
+        public List<(int,int)> BuscaPontesTarjan() {
+            List<(int,int)> pontes = new();
+
+            foreach (var e in this.ObjBuscaPontesTarjan.EncontrarPontes())
+            {
+                pontes.Add((Utilidades.GetIDVerticeExterno(e.Item1), Utilidades.GetIDVerticeExterno(e.Item2)));
+            }
+
+            return pontes;
+        }
+
         public void ImprimirMatrizIncidencia()
         {
             this.outputObject.ImprimirMatrizIncidencia();
@@ -302,6 +347,14 @@ namespace PUCGrafos.domain.grafo
             this.outputObject.ImprimirDFS();
         }
 
+        public void ImprimirPontesPorNaive() {
+            this.outputObject.ImprimirPontesPorNaive();
+        }
+
+        public void ImprimirPontesPorTarjan() {
+            this.outputObject.ImprimirPontesPorTarjan();
+        }
+
         protected void InicializaObjetoDeBuscas()
         {
             this.ObjBuscaEmLargura      = new BuscaEmLargura(this);
@@ -310,6 +363,9 @@ namespace PUCGrafos.domain.grafo
             if (this is GrafoDirecionado digrafo) {
                 this.ObjKosaraju = new Kosaraju(digrafo);
             }
+
+            this.ObjBuscaPontesNaive  = new PonteNaive(this);
+            this.ObjBuscaPontesTarjan = new PonteTarjan(this);
         }
 
         protected void InicializaObjetoSaida()

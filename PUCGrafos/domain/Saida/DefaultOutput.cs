@@ -36,6 +36,24 @@ namespace PUCGrafos.domain.Saida
             }
         }
 
+        public void ImprimirPontesPorNaive()
+        {
+            List<(int,int)> pontes = grafo.BuscaPontesNaive();
+
+            foreach (var ponte in pontes) {
+                Console.WriteLine($"({ponte.Item1}, {ponte.Item2})");
+            }
+        }
+
+        public void ImprimirPontesPorTarjan()
+        {
+            List<(int,int)> pontes = grafo.BuscaPontesTarjan();
+
+            foreach (var ponte in pontes) {
+                Console.WriteLine($"({ponte.Item1}, {ponte.Item2})");
+            }
+        }
+
         void IGrafoOutput.ImprimirMatrizAdjacencia()
         {
             int[,] matriz = grafo.MatrizAdjacencia;
