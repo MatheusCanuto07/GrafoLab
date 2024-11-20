@@ -29,6 +29,8 @@ namespace PUCGrafos.domain.vertice
         public List<string> Incidencia { get => incidencia; private set => incidencia = value; }
         public List<int> Sucessores { get => sucessores; private set => sucessores = value; }
         public List<int> Predecessores { get => predecessores; private set => predecessores = value; }
+        public int Peso { get => peso; private set => peso = value; }
+        public int Grau { get => grau; set => grau = value; }
 
         public Vertice(Grafo grafo, int ID) { 
             this.Id = ID;
@@ -43,7 +45,7 @@ namespace PUCGrafos.domain.vertice
             if (found) { return; }
    
             Sucessores.Insert(index, idDestino);
-            grau++;
+            Grau++;
         }
 
         public void RemoveSucessor(int idDestino)
@@ -54,7 +56,7 @@ namespace PUCGrafos.domain.vertice
             if (!found) {  return; }
 
             Sucessores.RemoveAt(index);
-            grau--;
+            Grau--;
         }
 
         public void AdicionarPredecessor(int idOrigem)
@@ -65,7 +67,7 @@ namespace PUCGrafos.domain.vertice
             if (found) { return; }
 
             Predecessores.Insert(index, idOrigem);
-            grau++;
+            Grau++;
         }
 
         public void RemovePredecessor(int idOrigem)
@@ -76,7 +78,7 @@ namespace PUCGrafos.domain.vertice
             if (!found) { return; }
 
             Predecessores.RemoveAt(index);
-            grau--;
+            Grau--;
         }
 
         public void AdicionarAdjacente(int IdVertice)
@@ -122,12 +124,12 @@ namespace PUCGrafos.domain.vertice
         public void SetPeso(int Peso)
         {
             if (Peso < 0) { Peso = 0; }
-            this.peso = Peso;
+            this.Peso = Peso;
         }
 
         public int GetPeso()
         {
-            return this.peso;
+            return this.Peso;
         }
 
         public void SetRotulo(string rotulo)

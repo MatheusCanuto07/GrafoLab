@@ -24,6 +24,13 @@ namespace PUCGrafos.domain.Saida
             ResultadoBusca[] resultado = this.grafo.GetResultadoBuscaEmLargura();
         }
 
+        public void ImprimirCaminhoEuleriano()
+        {
+            List<int> caminho = grafo.GetCaminhoEuleriano();
+            // Implementar método para impressão
+            throw new NotImplementedException();
+        }
+
         public void ImprimirDFS()
         {
             ResultadoBusca[] resultado = this.grafo.GetResultadoBuscaEmProfundidade();

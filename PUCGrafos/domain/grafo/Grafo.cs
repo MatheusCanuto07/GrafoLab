@@ -30,6 +30,7 @@ namespace PUCGrafos.domain.grafo
 
         protected PonteNaive ObjBuscaPontesNaive;
         protected PonteTarjan ObjBuscaPontesTarjan;
+        protected AlgoritmoFleury ObjAlgoritmoFleury;
 
         public Grafo(int NumVertices) {
             InicializaMembros(NumVertices);
@@ -355,6 +356,14 @@ namespace PUCGrafos.domain.grafo
             this.outputObject.ImprimirPontesPorTarjan();
         }
 
+        public void ImprimirCaminhoEuleriano() {
+            this.outputObject.ImprimirCaminhoEuleriano();
+        }
+
+        public List<int> GetCaminhoEuleriano() {
+            return this.ObjAlgoritmoFleury.GetCaminhoEuleriano();
+        }
+
         protected void InicializaObjetoDeBuscas()
         {
             this.ObjBuscaEmLargura      = new BuscaEmLargura(this);
@@ -366,6 +375,7 @@ namespace PUCGrafos.domain.grafo
 
             this.ObjBuscaPontesNaive  = new PonteNaive(this);
             this.ObjBuscaPontesTarjan = new PonteTarjan(this);
+            this.ObjAlgoritmoFleury = new AlgoritmoFleury(this);
         }
 
         protected void InicializaObjetoSaida()

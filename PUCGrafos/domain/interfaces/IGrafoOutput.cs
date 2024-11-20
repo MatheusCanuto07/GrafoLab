@@ -20,5 +20,7 @@ namespace PUCGrafos.domain.interfaces
 
         void ImprimirPontesPorTarjan();
 
+        void ImprimirCaminhoEuleriano();
+
     }
 }
