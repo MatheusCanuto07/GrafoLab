@@ -15,7 +15,7 @@ namespace PUCGrafos.domain.buscas
     public class Kosaraju : IBuscaEmGrafo
     {
         protected GrafoDirecionado Grafo { get; set; }
-        protected int IdVerticeInicial;
+        protected int IdVerticeInicial = 1;
         protected ResultadoBusca[] resultado;
         protected List<int> vertices_nao_descobertos = new();
         protected int tempo = 0;
@@ -57,7 +57,7 @@ namespace PUCGrafos.domain.buscas
             while (this.vertices_nao_descobertos.Count > 0)
             {
                 int v = vertices_nao_descobertos.First();
-                this.BuscaRecursiva(v);
+                this.BuscaRecursiva(v,gr);
             }
 
         }
@@ -80,20 +80,20 @@ namespace PUCGrafos.domain.buscas
             }
         }
 
-        protected void BuscaRecursiva(int Id)
+        protected void BuscaRecursiva(int Id, Grafo grafo)
         {
             tempo++;
             this.resultado[Id].Descoberta = tempo;
             this.vertices_nao_descobertos.Remove(Id);
 
-            Vertice v = this.Grafo.Vertices[Id];
+            Vertice v = grafo.Vertices[Id];
 
             foreach (int w in v.Sucessores)
             {
                 if (this.resultado[w].Descoberta == 0)
                 {
                     this.resultado[w].IdPai = v.Id;
-                    BuscaRecursiva(w);
+                    BuscaRecursiva(w,grafo);
                 }
             }
 

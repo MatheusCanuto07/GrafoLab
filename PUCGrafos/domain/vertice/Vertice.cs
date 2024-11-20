@@ -60,7 +60,7 @@ namespace PUCGrafos.domain.vertice
         public void AdicionarPredecessor(int idOrigem)
         {
             bool found = false;
-            int index = Utilidades.GetBinarySearchIndex(idOrigem, Sucessores, ref found);
+            int index = Utilidades.GetBinarySearchIndex(idOrigem, Predecessores, ref found);
 
             if (found) { return; }
 
@@ -71,7 +71,7 @@ namespace PUCGrafos.domain.vertice
         public void RemovePredecessor(int idOrigem)
         {
             bool found = false;
-            int index = Utilidades.GetBinarySearchIndex(idOrigem, Sucessores, ref found);
+            int index = Utilidades.GetBinarySearchIndex(idOrigem, Predecessores, ref found);
 
             if (!found) { return; }
 
