@@ -1,11 +1,13 @@
 ﻿using PUCGrafos.domain.aresta;
 using PUCGrafos.domain.buscas;
 using PUCGrafos.domain.exceptions;
+using PUCGrafos.domain.grafo.grafo_simples.grafo_simples_direcionado;
 using PUCGrafos.domain.grafo.grafo_simples.grafo_simples_nao_direcionado;
 using PUCGrafos.domain.interfaces;
 using PUCGrafos.domain.Saida;
 using PUCGrafos.domain.utilidades;
 using PUCGrafos.domain.vertice;
+using System.Data;
 
 
 namespace PUCGrafos.domain.grafo
@@ -24,6 +26,7 @@ namespace PUCGrafos.domain.grafo
 
         protected IBuscaEmGrafo ObjBuscaEmLargura;
         protected IBuscaEmGrafo ObjBuscaEmProfundidade;
+        protected IBuscaEmGrafo ObjKosaraju;
 
         public Grafo(int NumVertices) {
             InicializaMembros(NumVertices);
@@ -244,6 +247,20 @@ namespace PUCGrafos.domain.grafo
             return this.Arestas.Count == GetMaximoArestas();
         }
 
+        public int GetComponentesFConexosKosaraju()
+        {
+            if (this.ObjKosaraju == null)
+            {
+                return 0;
+            }
+
+            this.ObjKosaraju.Processar();
+
+            ResultadoBusca[] resultado = this.ObjKosaraju.GetResultado();
+
+            return resultado.Where(x => x.IdPai == Constantes.VerticeInexistente).Count();
+        }
+
         public void RealizarBuscaEmLargura(int IdVerticeInicio = 1)
         {
             IdVerticeInicio = Utilidades.GetIDVerticeInterno(IdVerticeInicio);
@@ -289,6 +306,10 @@ namespace PUCGrafos.domain.grafo
         {
             this.ObjBuscaEmLargura      = new BuscaEmLargura(this);
             this.ObjBuscaEmProfundidade = new BuscaEmProfundidade(this);
+
+            if (this is GrafoDirecionado digrafo) {
+                this.ObjKosaraju = new Kosaraju(digrafo);
+            }
         }
 
         protected void InicializaObjetoSaida()

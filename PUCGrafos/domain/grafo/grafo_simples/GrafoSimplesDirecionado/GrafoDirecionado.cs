@@ -59,7 +59,7 @@ namespace PUCGrafos.domain.grafo.grafo_simples.grafo_simples_direcionado
             return IsTodosVerticesAlcançaveis(grafoDirecaoInvertida.GetResultadoBuscaEmLargura());
         }
 
-        private GrafoDirecionado GetGrafoDirecaoInvertida()
+        public GrafoDirecionado GetGrafoDirecaoInvertida()
         {
             int IdOrigemExterno, IdDestinoExterno;
             GrafoDirecionado grafo = new GrafoDirecionado(this.Vertices.Length);
