@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PUCGrafos", "PUCGrafos.csproj", "{8EECFD09-2251-4520-9581-42604F845A96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetoTester", "..\ProjetoTester\ProjetoTester.csproj", "{E659023D-F330-40A3-864C-9B30280E55D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EECFD09-2251-4520-9581-42604F845A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EECFD09-2251-4520-9581-42604F845A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EECFD09-2251-4520-9581-42604F845A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EECFD09-2251-4520-9581-42604F845A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E659023D-F330-40A3-864C-9B30280E55D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E659023D-F330-40A3-864C-9B30280E55D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E659023D-F330-40A3-864C-9B30280E55D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E659023D-F330-40A3-864C-9B30280E55D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50794F12-0257-466A-8CE0-8AF6AB2BE2EE}
+	EndGlobalSection
+EndGlobal
