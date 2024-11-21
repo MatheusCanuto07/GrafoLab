@@ -62,12 +62,12 @@ grafoNaoDirecionado.AdicionarAresta(1, 3);
 
 // Checagem de conectividade em simplismente conexo, semi-fortemente conexo e fortemente conexo
 //grafoDirecionado.IsSimplesmenteConexo();
-//grafoDirecionado.IsSemiFortementeConexo();
+//TODO: grafoDirecionado.IsSemiFortementeConexo();
 //grafoDirecionado.IsFortementeConexo();
 
 // Checagem de quantidade de componentes fortemente conexos com Kosaraju
 
-// Checagem de ponte e articulação
+// TODO: Checagem de ponte e articulação
 
 // Representação de grafos utilizando Matriz de Adjacência
 
@@ -77,14 +77,14 @@ grafoNaoDirecionado.AdicionarAresta(1, 3);
 
 // Uma ponte em um grafo é definido como uma aresta cuja remoção desconectado o grafoDirecionado. O problema de se determinar pontes existentes em um grafo apresenta várias aplicações, dentre elas encontrar caminhos (ou ciclos) eulerianos. Na segunda etapa deste trabalho você deverá  implementar dois métodos para identificação de pontes: (i) método naive em que testa-se a conectividade de um grafo para cada remoção de aresta (utilizando uma busca em largura ou profundidade por exemplo); e (ii) método baseado em Tarjan (artigo em anexo). Após implementadas as duas soluções para detecção de pontes, você deverá encontrar um caminho euleriano, usando Algoritmo de Fleury, em um grafo euleriano usando as duas estratégias implementadas. Ilustre os tempos computacionais necessários para as duas estratégias utilizando como teste grafos aleatórios simples contendo 100, 1000, 10000 e 100000 vértices.
 
-// Gerar grafo aleatório a partir de um número de vertices
+// TODO: Gerar grafo aleatório a partir de um número de vertices
+Grafo gAleatorioVerticeEAresta = gerarGrafoNaoDirecionado.CriaGrafoAleatorio(5, 10);
+Grafo gAleatorioVertice = gerarGrafoNaoDirecionado.CriaGrafoAleatorioVertice(150);
+Grafo gAleatorioAresta = gerarGrafoNaoDirecionado.CriaGrafoAleatorioAresta(150);
 
-// Gerar grafo aleatório a partir de um número de arestas
+// TODO: Gerar grafo aleatório a partir de um número de arestas
 
 // Metodo para gerar um arquivo com as configuraçoes do grafo criado
 
 // Metodo para Ler um arquivo e gerar um grafo
 
-
-Grafo gAleatorio = gerarGrafoNaoDirecionado.CriaGrafoAleatorio(5, 4);
-gAleatorio.ImprimirMatrizAdjacencia();
