@@ -27,7 +27,7 @@ namespace PUCGrafos.domain.Saida
         public void ImprimirCaminhoEuleriano()
         {
             List<int> caminho = grafo.GetCaminhoEuleriano();
-            // Implementar método para impressão
+            Console.WriteLine(caminho);
             throw new NotImplementedException();
         }
 

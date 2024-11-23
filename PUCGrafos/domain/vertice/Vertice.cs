@@ -67,7 +67,7 @@ namespace PUCGrafos.domain.vertice
             if (found) { return; }
 
             Predecessores.Insert(index, idOrigem);
-            Grau++;
+            //Grau++;
         }
 
         public void RemovePredecessor(int idOrigem)
