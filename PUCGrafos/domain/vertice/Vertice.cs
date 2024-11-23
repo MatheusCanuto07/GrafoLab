@@ -67,6 +67,7 @@ namespace PUCGrafos.domain.vertice
             if (found) { return; }
 
             Predecessores.Insert(index, idOrigem);
+            
             //Grau++;
         }
 
@@ -78,7 +79,7 @@ namespace PUCGrafos.domain.vertice
             if (!found) { return; }
 
             Predecessores.RemoveAt(index);
-            Grau--;
+            //Grau--;
         }
 
         public void AdicionarAdjacente(int IdVertice)

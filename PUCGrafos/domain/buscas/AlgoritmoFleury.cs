@@ -74,10 +74,7 @@ namespace PUCGrafos.domain.buscas
 
         private (int IdOrigem, int IdDestino) EscolherAresta(Grafo grafo, int verticeAtual, List<int> vizinhos)
         {
-            if (!vizinhos.Any())
-            {
-                throw new InvalidOperationException($"O vértice {verticeAtual} não possui vizinhos disponíveis.");
-            }
+           
 
             foreach (int vertice in vizinhos)
             {

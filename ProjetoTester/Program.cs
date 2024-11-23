@@ -16,14 +16,31 @@ using PUCGrafos.domain.grafo.grafo_simples.grafo_simples_nao_direcionado;
 // Checagem de ponte e articulação
 
 // Criação de um grafo com X vértices (o número de vértices deve ser inserido pelo usuário)
-Grafo grafoDirecionado = new GrafoDirecionado(6);
-Grafo grafoNaoDirecionado = new GrafoNaoDirecionado(6);
+//Grafo grafoDirecionado = new GrafoDirecionado(6);
+Grafo grafoNaoDirecionado = new GrafoNaoDirecionado(7);
 
 // Criação e remoção de arestas
-grafoDirecionado.AdicionarAresta(1, 2);
-grafoDirecionado.AdicionarAresta(1, 3);
+//grafoDirecionado.AdicionarAresta(1, 2);
+//grafoDirecionado.AdicionarAresta(1, 3);
 grafoNaoDirecionado.AdicionarAresta(1, 2);
 grafoNaoDirecionado.AdicionarAresta(1, 3);
+
+grafoNaoDirecionado.AdicionarAresta(2, 3);
+grafoNaoDirecionado.AdicionarAresta(2, 4);
+grafoNaoDirecionado.AdicionarAresta(2, 5);
+
+grafoNaoDirecionado.AdicionarAresta(3, 4);
+grafoNaoDirecionado.AdicionarAresta(3, 6);
+
+grafoNaoDirecionado.AdicionarAresta(4, 5);
+grafoNaoDirecionado.AdicionarAresta(4, 6);
+
+grafoNaoDirecionado.AdicionarAresta(5, 6);
+grafoNaoDirecionado.AdicionarAresta(5, 7);
+
+grafoNaoDirecionado.AdicionarAresta(6, 7);
+
+grafoNaoDirecionado.GetCaminhoEuleriano();
 
 //grafoDirecionado.RemoverAresta(4 ,6);
 
@@ -78,9 +95,9 @@ grafoNaoDirecionado.AdicionarAresta(1, 3);
 // Uma ponte em um grafo é definido como uma aresta cuja remoção desconectado o grafoDirecionado. O problema de se determinar pontes existentes em um grafo apresenta várias aplicações, dentre elas encontrar caminhos (ou ciclos) eulerianos. Na segunda etapa deste trabalho você deverá  implementar dois métodos para identificação de pontes: (i) método naive em que testa-se a conectividade de um grafo para cada remoção de aresta (utilizando uma busca em largura ou profundidade por exemplo); e (ii) método baseado em Tarjan (artigo em anexo). Após implementadas as duas soluções para detecção de pontes, você deverá encontrar um caminho euleriano, usando Algoritmo de Fleury, em um grafo euleriano usando as duas estratégias implementadas. Ilustre os tempos computacionais necessários para as duas estratégias utilizando como teste grafos aleatórios simples contendo 100, 1000, 10000 e 100000 vértices.
 
 // TODO: Gerar grafo aleatório a partir de um número de vertices
-Grafo gAleatorioVerticeEAresta = gerarGrafoNaoDirecionado.CriaGrafoAleatorio(5, 10);
-Grafo gAleatorioVertice = gerarGrafoNaoDirecionado.CriaGrafoAleatorioVertice(150);
-Grafo gAleatorioAresta = gerarGrafoNaoDirecionado.CriaGrafoAleatorioAresta(150);
+//Grafo gAleatorioVerticeEAresta = gerarGrafoNaoDirecionado.CriaGrafoAleatorio(5, 10);
+//Grafo gAleatorioVertice = gerarGrafoNaoDirecionado.CriaGrafoAleatorioVertice(150);
+//Grafo gAleatorioAresta = gerarGrafoNaoDirecionado.CriaGrafoAleatorioAresta(150);
 
 // TODO: Gerar grafo aleatório a partir de um número de arestas
 
