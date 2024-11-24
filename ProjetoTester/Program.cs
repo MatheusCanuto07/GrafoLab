@@ -72,7 +72,7 @@ void DemonstracaoChecagemAdjacencia() {
     Console.WriteLine("Direcionado");
     Console.WriteLine($"1 e 2 são adjascentes? {grafoDirecionado.VerificaAdjacenciaEntreVertices(1,2)}");
     Console.WriteLine($"2 e 1 são adjascentes? {grafoDirecionado.VerificaAdjacenciaEntreVertices(2,1)}");
-    Console.WriteLine("{1,2} e {2,3} são adjascentes? {0}", grafoDirecionado.VerificaAdjacenciaEntreArestas(1,2,2,3));
+    Console.WriteLine("(1,2) e (2,3) são adjascentes? {0}", grafoDirecionado.VerificaAdjacenciaEntreArestas(1,2,2,3));
 
 }
 
