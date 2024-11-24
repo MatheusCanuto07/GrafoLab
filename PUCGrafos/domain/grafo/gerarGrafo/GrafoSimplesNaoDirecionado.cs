@@ -84,34 +84,25 @@ namespace PUCGrafos.domain.grafo.gerarGrafo{
       Random random = new Random();
       var grafo = new GrafoNaoDirecionado(numeroVertices);
 
-      // Passo 1: Garante que todos os vértices têm grau par
-      List<int> verticesImpares = new List<int>();
-      for (int i = 0; i < numeroVertices; i++)
-      {
-          if (random.Next(0, 2) == 1)
-          {
-              verticesImpares.Add(i);
-          }
-      }
+      int aleatoriedade = random.Next(1, numeroVertices - 2);
 
-      // Conecta pares de vértices ímpares para tornar o grau deles par
-      while (verticesImpares.Count > 1)
-      {
-          int u, v;
-          do
-          {
-              u = verticesImpares[random.Next(verticesImpares.Count)];
-              v = verticesImpares[random.Next(verticesImpares.Count)];
-          } while (u == v); // Garante que não criamos um loop
+      if (numeroVertices < 2)
+        {
+            Console.WriteLine("Número de vértices deve ser pelo menos 2.");
+            return grafo;
+        }
 
-          verticesImpares.Remove(u);
-          verticesImpares.Remove(v);
+        for (int i = 0; i < numeroVertices - 1; i++)
+        {
+            grafo.AdicionarAresta(i, i + 1, 0, true);
+        }
 
-          grafo.AdicionarAresta(u, v);
-      }
+        if (numeroVertices % 2 == 0)
+        {
+          grafo.AdicionarAresta(0, numeroVertices - 1, 0, true);
+        }
 
-      // Passo 2: Adiciona arestas aleatórias sem criar loops ou paralelas
-      return PopulaGrafo(random.Next(0, numeroVertices * (numeroVertices - 1) / 2), numeroVertices, grafo);
+      return grafo;
     }
   }
 }
