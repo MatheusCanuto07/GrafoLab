@@ -23,17 +23,16 @@ namespace PUCGrafos.domain.buscas
             {
                 foreach (int v in grafo.Vertices[u].Adjacencia)
                 {
-                    //if (u < v) // Evita processar arestas duplicadas
-                    //{
-                        copia.RemoverAresta(u,v, true);
+                    if (!copia.IsDirecionado() && u < v) { continue; } // Evita processar arestas duplicadas
+                    
+                    copia.RemoverAresta(u,v, true);
 
-                        if (!IsConexo(copia, vertices_desconectados))
-                        {
-                            pontes.Add((u, v));
-                        }
+                    if (!IsConexo(copia, vertices_desconectados))
+                    {
+                        pontes.Add((u, v));
+                    }
 
-                        copia.AdicionarAresta(u, v, 0, true);
-                    //}
+                    copia.AdicionarAresta(u, v, 0, true);
                 }
             }
 

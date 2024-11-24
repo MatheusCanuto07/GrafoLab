@@ -31,12 +31,12 @@ void CriarRemoverArestas() {
 void PonderarRotularVerticesArestas() {
     Grafo grafoNaoDirecionado = new GrafoNaoDirecionado(2);
     grafoNaoDirecionado.AdicionarAresta(1,2);
-    grafoNaoDirecionado.InserirRotuloVertice("Esquina a", 1);
+    grafoNaoDirecionado.InserirRotuloVertice("A", 1);
     grafoNaoDirecionado.InserirRotuloAresta("Rua 3", 1, 2);
 
-    Grafo grafoDirecionado = new GrafoDirecionado(2);
+    Grafo grafoDirecionado = new GrafoDirecionado(3);
     grafoDirecionado.AdicionarAresta(1,2);
-    grafoDirecionado.InserirRotuloVertice("Esquina b", 1);
+    grafoDirecionado.InserirRotuloVertice("B", 1);
     grafoDirecionado.InserirRotuloAresta("Rua 5", 1, 2);
 
     grafoNaoDirecionado.ImprimirMatrizAdjacencia();
@@ -67,12 +67,14 @@ void DemonstracaoChecagemAdjacencia() {
     Console.WriteLine("Não direcionado");
     Console.WriteLine($"1 e 2 são adjascentes? {grafoNaoDirecionado.VerificaAdjacenciaEntreVertices(1,2)}");
     Console.WriteLine($"2 e 1 são adjascentes? {grafoNaoDirecionado.VerificaAdjacenciaEntreVertices(2,1)}");
-    Console.WriteLine("{1,2} e {2,3} são adjascentes? {0}", grafoNaoDirecionado.VerificaAdjacenciaEntreArestas(1,2,2,3));
+    Console.Write("{1,2} e {2,3} são adjascentes? ");
+    Console.WriteLine(grafoNaoDirecionado.VerificaAdjacenciaEntreArestas(1,2,2,3));
 
     Console.WriteLine("Direcionado");
     Console.WriteLine($"1 e 2 são adjascentes? {grafoDirecionado.VerificaAdjacenciaEntreVertices(1,2)}");
     Console.WriteLine($"2 e 1 são adjascentes? {grafoDirecionado.VerificaAdjacenciaEntreVertices(2,1)}");
-    Console.WriteLine("(1,2) e (2,3) são adjascentes? {0}", grafoDirecionado.VerificaAdjacenciaEntreArestas(1,2,2,3));
+    Console.Write("(1,2) e (2,3) são adjascentes? ");
+    Console.WriteLine(grafoDirecionado.VerificaAdjacenciaEntreArestas(1,2,2,3));
 
 }
 
@@ -115,7 +117,7 @@ void DemonstracaoChecarVazioCompleto() {
     Console.WriteLine($"Completo? {grafoDirecionado.VerificaGrafoCompleto()}");
 }
 
-//DemonstracaoChecarVazioCompleto()
+//DemonstracaoChecarVazioCompleto();
 
 void DemonstracaoConectividade() {
     Grafo grafoNaoDirecionado = new GrafoNaoDirecionado(3);
@@ -134,7 +136,7 @@ void DemonstracaoConectividade() {
     Console.WriteLine($"F-Conexo? {grafoDirecionado.IsFortementeConexo()}");
 }
 
-//DemonstracaoConectividade()
+//DemonstracaoConectividade();
 
 void DemonstracaoComponentesFConexosKosaraju() {
     Grafo grafo = new GrafoDirecionado(7);
@@ -159,7 +161,7 @@ void DemonstracaoComponentesFConexosKosaraju() {
     Console.WriteLine($"Componentes F-Conexos: {grafo.GetComponentesFConexosKosaraju()}");
 }
 
-//DemonstracaoComponentesFConexosKosaraju()
+//DemonstracaoComponentesFConexosKosaraju();
 
 void DemonstracaoBuscaPontesArticulacoes() {
     Grafo grafoNaoDirecionado = new GrafoNaoDirecionado(3);
@@ -173,31 +175,31 @@ void DemonstracaoBuscaPontesArticulacoes() {
     Console.WriteLine("[Não direcionado] Pontes por Tarjan");
     foreach (var ponte in grafoNaoDirecionado.BuscaPontesTarjan())
     {
-        Console.WriteLine("{{0},{1}}",grafoNaoDirecionado.Vertices[ponte.Item1].GetRotulo(),grafoNaoDirecionado.Vertices[ponte.Item2].GetRotulo());
+        Console.WriteLine("({0},{1})",grafoNaoDirecionado.Vertices[ponte.Item1].GetRotulo(),grafoNaoDirecionado.Vertices[ponte.Item2].GetRotulo());
     }
 
     Console.WriteLine("[Não direcionado] Pontes por Naive");
     foreach (var ponte in grafoNaoDirecionado.BuscaPontesNaive())
     {
-        Console.WriteLine("{{0},{1}}",grafoNaoDirecionado.Vertices[ponte.Item1].GetRotulo(),grafoNaoDirecionado.Vertices[ponte.Item2].GetRotulo());
+        Console.WriteLine("({0},{1})",grafoNaoDirecionado.Vertices[ponte.Item1].GetRotulo(),grafoNaoDirecionado.Vertices[ponte.Item2].GetRotulo());
     }
 
     Console.WriteLine("[Direcionado] Pontes por Tarjan");
     foreach (var ponte in grafoDirecionado.BuscaPontesTarjan())
     {
-        Console.WriteLine("{{0},{1}}",grafoDirecionado.Vertices[ponte.Item1].GetRotulo(),grafoDirecionado.Vertices[ponte.Item2].GetRotulo());
+        Console.WriteLine("({0},{1})",grafoDirecionado.Vertices[ponte.Item1].GetRotulo(),grafoDirecionado.Vertices[ponte.Item2].GetRotulo());
     }
 
     Console.WriteLine("[Direcionado] Pontes por Naive");
     foreach (var ponte in grafoDirecionado.BuscaPontesNaive())
     {
-        Console.WriteLine("{{0},{1}}",grafoDirecionado.Vertices[ponte.Item1].GetRotulo(),grafoDirecionado.Vertices[ponte.Item2].GetRotulo());
+        Console.WriteLine("({0},{1})",grafoDirecionado.Vertices[ponte.Item1].GetRotulo(),grafoDirecionado.Vertices[ponte.Item2].GetRotulo());
     }
 
     Console.WriteLine("[Não direcionado] Articulações");
     foreach (var artic in grafoNaoDirecionado.BuscarArticulacoes())
     {
-        Console.WriteLine("{{0} ",grafoNaoDirecionado.Vertices[artic].GetRotulo());
+        Console.WriteLine("{0} ",grafoNaoDirecionado.Vertices[artic].GetRotulo());
     }
 
     Console.WriteLine("[Direcionado] Articulações");
@@ -207,7 +209,7 @@ void DemonstracaoBuscaPontesArticulacoes() {
     }
 }
 
-//DemonstracaoBuscaPontesArticulacoes()
+//DemonstracaoBuscaPontesArticulacoes();
 
 #endregion
 
