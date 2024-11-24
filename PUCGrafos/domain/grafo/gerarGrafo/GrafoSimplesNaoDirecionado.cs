@@ -33,6 +33,11 @@ namespace PUCGrafos.domain.grafo.gerarGrafo{
 
       return CriaGrafoAleatorio(nAleatorioVertice, nAleatorioAresta);
     }
+
+    public static GrafoNaoDirecionado CriaAleatorioGrafoEuleriano(int numeroVertices){
+
+      return GerarGrafoEulerianoNaoDirecionado(numeroVertices);
+    }
     private static GrafoNaoDirecionado PopulaGrafo(int aresta, int vertice, GrafoNaoDirecionado grafo){
       Random random = new Random();
 
@@ -74,40 +79,39 @@ namespace PUCGrafos.domain.grafo.gerarGrafo{
         }
       return false;
     }
-    private static GrafoNaoDirecionado PopulaGrafoEureliano(int aresta, int vertice, GrafoNaoDirecionado grafo){
+    private static GrafoNaoDirecionado GerarGrafoEulerianoNaoDirecionado(int numeroVertices)
+    {
       Random random = new Random();
+      var grafo = new GrafoNaoDirecionado(numeroVertices);
 
-      int[] verticeInicio = new int[aresta];
-      int[] verticeFim = new int[aresta];
-
-      
-      for (int i = 0; i < aresta; i++)
+      // Passo 1: Garante que todos os vértices têm grau par
+      List<int> verticesImpares = new List<int>();
+      for (int i = 0; i < numeroVertices; i++)
       {
-        int novoInicio, novoFim;
-        // Garante que o número não se repita
-        do
-        {
-          novoInicio = random.Next(0, vertice);
-          novoFim = random.Next(0, vertice);
-          // Ele sai do looping quando o novo inicio for diferente do novoFim
-          // Se o array1 tem 1 e o array2 tem o item 2, o array1 não pode ter o item 2 e o array2 ter o item 1
-        } while (novoInicio == novoFim || verificaDuplaInversa(verticeInicio, verticeFim, novoInicio, novoFim));
-
-        verticeInicio[i] = novoInicio;
-        verticeFim[i] = novoFim;
+          if (random.Next(0, 2) == 1)
+          {
+              verticesImpares.Add(i);
+          }
       }
 
-      for (int i = 0; i < aresta - 1; i++)
+      // Conecta pares de vértices ímpares para tornar o grau deles par
+      while (verticesImpares.Count > 1)
       {
-        // Cada grau tem que ser maio ou igual ao total de vertices / 2
-        
-        
-        grafo.AdicionarAresta(verticeInicio[i], verticeFim[i], 0, true);
-        
-        // Se para cada par de vertice não adjacente a soma de seus graus tem que ser maior ou igual ao total de vertices
+          int u, v;
+          do
+          {
+              u = verticesImpares[random.Next(verticesImpares.Count)];
+              v = verticesImpares[random.Next(verticesImpares.Count)];
+          } while (u == v); // Garante que não criamos um loop
+
+          verticesImpares.Remove(u);
+          verticesImpares.Remove(v);
+
+          grafo.AdicionarAresta(u, v);
       }
 
-      return grafo;
+      // Passo 2: Adiciona arestas aleatórias sem criar loops ou paralelas
+      return PopulaGrafo(random.Next(0, numeroVertices * (numeroVertices - 1) / 2), numeroVertices, grafo);
     }
   }
 }
