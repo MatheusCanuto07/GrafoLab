@@ -208,6 +208,35 @@ namespace PUCGrafos.domain.grafo
             this.Arestas[key].SetRotulo(rotulo);
         }
 
+        public void InserirPesoVertice(int peso, int idVertice){
+          idVertice = Utilidades.GetIDVerticeInterno(idVertice);
+
+            if (!VerticeValido(idVertice)) {
+                throw new ExceptionVerticeInvalido();
+            }
+
+            this.Vertices[idVertice].SetPeso(peso);
+        }
+
+        public void InserirPesoAresta(int peso, int IdVerticeOrigem, int IdVerticeDestino){
+          IdVerticeOrigem = Utilidades.GetIDVerticeInterno(IdVerticeOrigem);
+          IdVerticeDestino = Utilidades.GetIDVerticeInterno(IdVerticeDestino);
+
+          if (!VerticeValido(IdVerticeOrigem) || !VerticeValido(IdVerticeDestino))
+          {
+              throw new ExceptionArestaInvalida();
+          }
+
+          string key = Aresta.GerarKey(IdVerticeOrigem, IdVerticeDestino);
+
+          if (!Arestas.ContainsKey(key))
+          {
+              throw new ExceptionArestaInvalida();
+          }
+
+          this.Arestas[key].SetPeso(peso);
+        }
+
         public bool VerificaAdjacenciaEntreVertices(int IdVerticeA, int IdVerticeB, bool ja_convertidos = false)
         {
             if (!ja_convertidos) {
@@ -368,6 +397,9 @@ namespace PUCGrafos.domain.grafo
 
         public void ImprimirCaminhoEulerianoNaive() {
             this.outputObject.ImprimirCaminhoEulerianoNaive();
+        }
+        public void ImprimirListaAdjacencia(){
+          this.outputObject.ImprimirListaAdjacencia();
         }
 
         public void ImprimirArticulações() {

@@ -26,5 +26,7 @@ namespace PUCGrafos.domain.interfaces
 
         void ImprimirArticulacoes();
 
+        void ImprimirListaAdjacencia();
+
     }
 }

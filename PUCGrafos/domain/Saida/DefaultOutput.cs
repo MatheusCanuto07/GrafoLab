@@ -88,7 +88,7 @@ namespace PUCGrafos.domain.Saida
             }
         }
 
-        public void ImprimirPontesPorNaive()
+    public void ImprimirPontesPorNaive()
         {
             List<(int,int)> pontes = grafo.BuscaPontesNaive();
 
@@ -149,5 +149,18 @@ namespace PUCGrafos.domain.Saida
                 Console.WriteLine();
             }
         }
+      void IGrafoOutput.ImprimirListaAdjacencia()
+      {
+        Console.WriteLine("Lista de adjacência");
+        for (int i = 0; i < grafo.Vertices.Length; i++)
+        {
+          Console.Write($"Vértice {i + 1}: ");
+          foreach (var item in grafo.Vertices[i].Adjacencia)
+          {
+            Console.Write($"{item + 1} ");
+          }
+          Console.WriteLine();
+        }
     }
+  }
 }

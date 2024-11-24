@@ -6,6 +6,7 @@ using PUCGrafos.domain.grafo.grafo_simples.grafo_simples_nao_direcionado;
 
 namespace PUCGrafos.domain.grafo.gerarGrafo{
   public static class gerarGrafoNaoDirecionado{
+    // Cria um grafo simples aleatório que pode ou não ser conexo
     public static GrafoNaoDirecionado CriaGrafoAleatorio(int vertice, int aresta)
     {
       GrafoNaoDirecionado g = new GrafoNaoDirecionado(vertice);
@@ -20,18 +21,22 @@ namespace PUCGrafos.domain.grafo.gerarGrafo{
       return PopulaGrafo(nAleatorioAresta, vertice, g);
     }
     public static GrafoNaoDirecionado CriaGrafoAleatorioAresta(int aresta){
-      Random random = new Random();
-      // TODO: Achar fórmula mínimo e máximo de arestas
-      int nAleatorioVertice = random.Next(0, aresta);
       // V * (V - 1) / 2 >= número de arestas
       // número de arestas = V * (V - 1)
 
-      GrafoNaoDirecionado g = new GrafoNaoDirecionado(nAleatorioVertice);
-
-      return new GrafoNaoDirecionado(5);
+      return CriaGrafoAleatorio(aresta + 1, aresta);
     }
-    public static GrafoNaoDirecionado CriaGrafoAleatorio(){
-      return new GrafoNaoDirecionado(5);
+    public static GrafoNaoDirecionado CriaGrafoAleatorio(int nAleatorio){
+      Random random = new Random();
+      int nAleatorioVertice = random.Next(1, nAleatorio);
+      int nAleatorioAresta = random.Next(0, nAleatorioVertice * (nAleatorioVertice - 1) / 2);
+
+      return CriaGrafoAleatorio(nAleatorioVertice, nAleatorioAresta);
+    }
+
+    public static GrafoNaoDirecionado CriaAleatorioGrafoEuleriano(int numeroVertices){
+
+      return GerarGrafoEulerianoNaoDirecionado(numeroVertices);
     }
     private static GrafoNaoDirecionado PopulaGrafo(int aresta, int vertice, GrafoNaoDirecionado grafo){
       Random random = new Random();
@@ -63,6 +68,7 @@ namespace PUCGrafos.domain.grafo.gerarGrafo{
       return grafo;
     }
     private static bool verificaDuplaInversa(int [] array1, int [] array2, int novoNumero1, int novoNumero2){
+
       for (int i = 0; i < array1.Length; i++)
         {
           // Verificar se a nova dupla (novoNumero1, novoNumero2) ou sua inversa (novoNumero2, novoNumero1) já existe
@@ -72,6 +78,40 @@ namespace PUCGrafos.domain.grafo.gerarGrafo{
           }
         }
       return false;
+    }
+    private static GrafoNaoDirecionado GerarGrafoEulerianoNaoDirecionado(int numeroVertices)
+    {
+      Random random = new Random();
+      var grafo = new GrafoNaoDirecionado(numeroVertices);
+
+      // Passo 1: Garante que todos os vértices têm grau par
+      List<int> verticesImpares = new List<int>();
+      for (int i = 0; i < numeroVertices; i++)
+      {
+          if (random.Next(0, 2) == 1)
+          {
+              verticesImpares.Add(i);
+          }
+      }
+
+      // Conecta pares de vértices ímpares para tornar o grau deles par
+      while (verticesImpares.Count > 1)
+      {
+          int u, v;
+          do
+          {
+              u = verticesImpares[random.Next(verticesImpares.Count)];
+              v = verticesImpares[random.Next(verticesImpares.Count)];
+          } while (u == v); // Garante que não criamos um loop
+
+          verticesImpares.Remove(u);
+          verticesImpares.Remove(v);
+
+          grafo.AdicionarAresta(u, v);
+      }
+
+      // Passo 2: Adiciona arestas aleatórias sem criar loops ou paralelas
+      return PopulaGrafo(random.Next(0, numeroVertices * (numeroVertices - 1) / 2), numeroVertices, grafo);
     }
   }
 }
