@@ -84,23 +84,75 @@ namespace PUCGrafos.domain.grafo.gerarGrafo{
       Random random = new Random();
       var grafo = new GrafoNaoDirecionado(numeroVertices);
 
-      int aleatoriedade = random.Next(1, numeroVertices - 2);
-
       if (numeroVertices < 2)
-        {
-            Console.WriteLine("Número de vértices deve ser pelo menos 2.");
-            return grafo;
+      {
+          Console.WriteLine("Número de vértices deve ser pelo menos 2.");
+          return grafo;
+      }
+
+      for (int i = 0; i < numeroVertices - 1; i++)
+      {
+          grafo.AdicionarAresta(i, i + 1, 0, true);
+      }
+
+      // Se a quantidade de vertices for par ele adiciona uma aresta
+      if (numeroVertices % 2 == 0)
+      {
+        grafo.AdicionarAresta(0, numeroVertices - 1, 0, true);
+      }
+
+      int aleatoriedade = random.Next(0, numeroVertices * (numeroVertices - 1) - grafo.Arestas.Count());
+      
+      while(aleatoriedade > 0){
+        int verticeAleatorio1 = random.Next(0, numeroVertices);
+        int verticeAleatorio2 = random.Next(0, numeroVertices);
+
+        if(!grafo.VerificaExistenciaAresta(verticeAleatorio1, verticeAleatorio2, true) 
+          && verticeAleatorio1 != verticeAleatorio2 
+        ){
+          grafo.AdicionarAresta(verticeAleatorio1, verticeAleatorio2, 0, true);
         }
 
-        for (int i = 0; i < numeroVertices - 1; i++)
-        {
-            grafo.AdicionarAresta(i, i + 1, 0, true);
-        }
+        aleatoriedade -= 1;
+      }
 
-        if (numeroVertices % 2 == 0)
-        {
-          grafo.AdicionarAresta(0, numeroVertices - 1, 0, true);
+      List<int> grauImpar = new List<int>();
+
+      for (int i = 0; i < grafo.Vertices.Length; i++)
+      { 
+        if(grafo.Vertices[i].Grau % 2 == 1){
+          grauImpar.Add(i);
         }
+      }
+
+      List<int> VerticesCorrigidos = grauImpar;
+
+      if(!(grauImpar.Count == 0 || grauImpar.Count == 2)){
+        foreach (int gImpar in grauImpar.ToList())
+        {
+          if(grauImpar.Count == 2)
+            break;
+          if(!grauImpar.Contains(gImpar)){
+            // Pula para a proxima iteração
+            continue;
+          }
+          // Percorrer sob a lista de vertices de grau impar acrescentando arestas entre eles
+          foreach (int verticesGrauImpar in grauImpar)
+          {
+            if (verticesGrauImpar != gImpar && !grafo.VerificaExistenciaAresta(gImpar, verticesGrauImpar, true))
+              {
+                grafo.AdicionarAresta(gImpar, verticesGrauImpar, 0, true);
+                
+                // Remove os vértices de grau ímpar
+                grauImpar.Remove(gImpar);
+                grauImpar.Remove(verticesGrauImpar);
+                
+                break; // Sai do loop interno, já que gImpar foi tratado
+              }
+          }
+        }
+      }
+
 
       return grafo;
     }

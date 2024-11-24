@@ -289,7 +289,7 @@ void DemonstracaoGrafoEulerianoAleatorio() {
 
     GrafoNaoDirecionado g = gerarGrafoNaoDirecionado.CriaAleatorioGrafoEuleriano(100);
 
-    Utilidades.SalvaEmCSV(g);
+    //Utilidades.SalvaEmCSV(g);
 
     g.ImprimirCaminhoEuleriano();
 
