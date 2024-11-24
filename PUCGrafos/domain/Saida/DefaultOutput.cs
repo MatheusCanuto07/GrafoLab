@@ -24,7 +24,7 @@ namespace PUCGrafos.domain.Saida
             Console.WriteLine("Articulações: ");
             foreach (int articulacao in this.grafo.BuscarArticulacoes())
             {
-                Console.Write($"{Utilidades.GetIDVerticeExterno(articulacao)}, ");
+                Console.Write($"{grafo.Vertices[articulacao].GetRotulo()} ");
             }
             Console.WriteLine();
         }
@@ -49,7 +49,7 @@ namespace PUCGrafos.domain.Saida
             Console.WriteLine("Caminho Euleriano Método Fleury Tarjan: ");
             foreach (int vertice in caminho)
             {
-                Console.Write($"{Utilidades.GetIDVerticeExterno(vertice)} ");
+                Console.Write($"{grafo.Vertices[vertice].GetRotulo()} ");
             }
 
             Console.WriteLine();
@@ -70,7 +70,7 @@ namespace PUCGrafos.domain.Saida
             Console.WriteLine("Caminho Euleriano Método Fleury Naive: ");
             foreach (int vertice in caminho)
             {
-                Console.Write($"{Utilidades.GetIDVerticeExterno(vertice)} ");
+                Console.Write($"{grafo.Vertices[vertice].GetRotulo()} ");
             }
 
             Console.WriteLine();

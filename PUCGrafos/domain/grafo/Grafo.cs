@@ -39,6 +39,11 @@ namespace PUCGrafos.domain.grafo
         protected bool clockEnabled = false;
 
         public Grafo(int NumVertices) {
+
+            if (NumVertices <= 0) {
+                throw new ArgumentOutOfRangeException("O grafo deve ter ao menos um vértice");
+            }
+
             InicializaMembros(NumVertices);
 
             InicializaObjetoSaida();
@@ -257,6 +262,8 @@ namespace PUCGrafos.domain.grafo
             if (!ja_convertidos) {
                 IdOrigemA = Utilidades.GetIDVerticeInterno(IdOrigemA);
                 IdDestinoA = Utilidades.GetIDVerticeInterno(IdDestinoA);
+                IdOrigemB = Utilidades.GetIDVerticeInterno(IdOrigemB);
+                IdDestinoB = Utilidades.GetIDVerticeInterno(IdDestinoB);
             }
 
             if (!VerticeValido(IdOrigemA)  || 
@@ -267,8 +274,8 @@ namespace PUCGrafos.domain.grafo
                 throw new ExceptionVerticeInvalido();
             }
 
-            if (!VerificaExistenciaAresta(IdOrigemA, IdDestinoA) ||
-                !VerificaExistenciaAresta(IdOrigemB, IdDestinoB))
+            if (!VerificaExistenciaAresta(IdOrigemA, IdDestinoA, true) ||
+                !VerificaExistenciaAresta(IdOrigemB, IdDestinoB, true))
             {
                 return false;
             }
