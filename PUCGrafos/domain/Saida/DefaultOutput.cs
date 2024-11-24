@@ -19,6 +19,16 @@ namespace PUCGrafos.domain.Saida
             this.grafo = grafoObj;
         }
 
+        public void ImprimirArticulacoes()
+        {
+            Console.WriteLine("Articulações: ");
+            foreach (int articulacao in this.grafo.BuscarArticulacoes())
+            {
+                Console.Write($"{Utilidades.GetIDVerticeExterno(articulacao)}, ");
+            }
+            Console.WriteLine();
+        }
+
         public void ImprimirBFS()
         {
             ResultadoBusca[] resultado = this.grafo.GetResultadoBuscaEmLargura();
@@ -27,8 +37,13 @@ namespace PUCGrafos.domain.Saida
         public void ImprimirCaminhoEuleriano()
         {
             List<int> caminho = grafo.GetCaminhoEuleriano();
-            Console.WriteLine(caminho);
-            throw new NotImplementedException();
+
+            foreach (int vertice in caminho)
+            {
+                Console.Write($"{Utilidades.GetIDVerticeExterno(vertice)}, ");
+            }
+
+            Console.WriteLine();
         }
 
         public void ImprimirDFS()

@@ -74,23 +74,16 @@ namespace PUCGrafos.domain.buscas
 
         private (int IdOrigem, int IdDestino) EscolherAresta(Grafo grafo, int verticeAtual, List<int> vizinhos)
         {
-           
+            List<(int, int)> pontes = grafo.BuscaPontesTarjan();
 
             foreach (int vertice in vizinhos)
             {
-                List<(int, int)> pontes = grafo.BuscaPontesTarjan();
-                // Temporariamente remove a aresta
-                //grafo.RemoverAresta(verticeAtual, vertice,true );
-
-                // Verifica se a remoção desconecta o grafo
-                //pontes.Contains((verticeAtual,vertice));
-                if (pontes.Contains((verticeAtual, vertice)) == false)
-                {
-                    //grafo.AdicionarAresta(verticeAtual,vertice,0,true); // Reverte a remoção
-                    return (verticeAtual, vertice);
+                // Verifica se a aresta é uma ponte
+                if (!pontes.Contains((verticeAtual, vertice))) {
+                    if (!grafo.IsDirecionado() && !pontes.Contains((vertice, verticeAtual))) {
+                        return (verticeAtual, vertice);
+                    }
                 }
-
-                //grafo.AdicionarAresta(verticeAtual,vertice); // Reverte a remoção
             }
 
             // Se todas as arestas forem pontes, retorna a primeira

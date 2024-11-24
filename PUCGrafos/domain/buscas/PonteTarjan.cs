@@ -13,17 +13,16 @@ namespace PUCGrafos.domain.buscas {
         public PonteTarjan(Grafo grafo)
         {
             this.grafo = grafo;
-            this.tempo = 0;
             this.temposDescoberta = new int[grafo.Vertices.Length];
             this.valoresLow = new int[grafo.Vertices.Length];
             this.pais = new int[grafo.Vertices.Length];
-            Array.Fill(temposDescoberta, Constantes.VerticeNaoExplorado); // Inicializa como não visitado
-            Array.Fill(valoresLow, Constantes.VerticeNaoExplorado);
             this.pontes = new List<(int, int)>();
+            Inicializar();
         }
 
         public List<(int, int)> EncontrarPontes()
         {
+            Inicializar();
             for (int i = 0; i < grafo.Vertices.Length; i++)
             {
                 if (temposDescoberta[i] == Constantes.VerticeNaoExplorado)
@@ -33,6 +32,13 @@ namespace PUCGrafos.domain.buscas {
             }
 
             return pontes;
+        }
+
+        private void Inicializar() {
+            this.tempo = 0;
+            Array.Fill(temposDescoberta, Constantes.VerticeNaoExplorado); // Inicializa como não visitado
+            Array.Fill(valoresLow, Constantes.VerticeNaoExplorado);
+            this.pontes.Clear();
         }
 
         private void DFS(int u)

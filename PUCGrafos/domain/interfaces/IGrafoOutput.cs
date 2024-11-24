@@ -22,5 +22,7 @@ namespace PUCGrafos.domain.interfaces
 
         void ImprimirCaminhoEuleriano();
 
+        void ImprimirArticulacoes();
+
     }
 }

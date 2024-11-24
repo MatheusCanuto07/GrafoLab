@@ -32,6 +32,8 @@ namespace PUCGrafos.domain.grafo
         protected PonteTarjan ObjBuscaPontesTarjan;
         protected AlgoritmoFleury ObjAlgoritmoFleury;
 
+        protected ArticulacaoTarjan ObjArticulacoesTarjan;
+
         public Grafo(int NumVertices) {
             InicializaMembros(NumVertices);
 
@@ -132,10 +134,20 @@ namespace PUCGrafos.domain.grafo
                 throw new ExceptionArestaInvalida();
             }
 
+            if (!VerificaExistenciaAresta(IdOrigem, IdDestino, true)) {
+                return;
+            }
+
             string key = Aresta.GerarKey(IdOrigem, IdDestino);
 
-            if (!Arestas.ContainsKey(key))
-            {
+            if (!IsDirecionado() && !Arestas.ContainsKey(key)) {
+                int auxiliar = IdOrigem;
+                IdOrigem = IdDestino;
+                IdDestino = auxiliar;
+                key = Aresta.GerarKey(IdOrigem, IdDestino);
+            }
+
+            if (!Arestas.ContainsKey(key)) {
                 return;
             }
 
@@ -316,7 +328,7 @@ namespace PUCGrafos.domain.grafo
 
             foreach (var e in this.ObjBuscaPontesNaive.EncontrarPontes())
             {
-                pontes.Add((Utilidades.GetIDVerticeExterno(e.Item1), Utilidades.GetIDVerticeExterno(e.Item2)));
+                pontes.Add((e.Item1, e.Item2));
             }
 
             return pontes;
@@ -327,10 +339,14 @@ namespace PUCGrafos.domain.grafo
 
             foreach (var e in this.ObjBuscaPontesTarjan.EncontrarPontes())
             {
-                pontes.Add((Utilidades.GetIDVerticeExterno(e.Item1), Utilidades.GetIDVerticeExterno(e.Item2)));
+                pontes.Add((e.Item1, e.Item2));
             }
 
             return pontes;
+        }
+
+        public List<int> BuscarArticulacoes() {
+            return this.ObjArticulacoesTarjan.EncontrarArticulacoes();
         }
 
         public void ImprimirMatrizIncidencia()
@@ -360,6 +376,10 @@ namespace PUCGrafos.domain.grafo
             this.outputObject.ImprimirCaminhoEuleriano();
         }
 
+        public void ImprimirArticulações() {
+            this.outputObject.ImprimirArticulacoes();
+        }
+
         public List<int> GetCaminhoEuleriano() {
             return this.ObjAlgoritmoFleury.GetCaminhoEuleriano();
         }
@@ -376,6 +396,7 @@ namespace PUCGrafos.domain.grafo
             this.ObjBuscaPontesNaive  = new PonteNaive(this);
             this.ObjBuscaPontesTarjan = new PonteTarjan(this);
             this.ObjAlgoritmoFleury = new AlgoritmoFleury(this);
+            this.ObjArticulacoesTarjan = new ArticulacaoTarjan(this);
         }
 
         protected void InicializaObjetoSaida()
