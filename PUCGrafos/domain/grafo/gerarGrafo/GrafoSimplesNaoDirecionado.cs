@@ -117,42 +117,68 @@ namespace PUCGrafos.domain.grafo.gerarGrafo{
       }
 
       List<int> grauImpar = new List<int>();
+      Dictionary<int,bool> VerticeProcessado = new Dictionary<int, bool>();
+      int restantes;
 
+      // Busca os vértices com grau ímpar
       for (int i = 0; i < grafo.Vertices.Length; i++)
       { 
         if(grafo.Vertices[i].Grau % 2 == 1){
           grauImpar.Add(i);
+          VerticeProcessado.Add(i, false);
         }
       }
 
-      List<int> VerticesCorrigidos = grauImpar;
+      restantes = grauImpar.Count();
 
-      if(!(grauImpar.Count == 0 || grauImpar.Count == 2)){
-        foreach (int gImpar in grauImpar.ToList())
+      // Conecta os vértices com grau ímpar entre si
+      for (int i = 0; i < grauImpar.Count; i++)
+      {
+        if (restantes == 2) return grafo; // Se sobrar 2 de grau ímpar, nenhum processamento a mais é necessário
+
+        int IdOrigem = grauImpar[i];
+        if (VerticeProcessado[IdOrigem])
+          continue;
+        for (int j = i + 1; j < grauImpar.Count; j++)
         {
-          if(grauImpar.Count == 2)
-            break;
-          if(!grauImpar.Contains(gImpar)){
-            // Pula para a proxima iteração
+          int IdDestino = grauImpar[j];
+          if (VerticeProcessado[IdDestino] || grafo.VerificaExistenciaAresta(IdOrigem, IdDestino, true))
             continue;
-          }
-          // Percorrer sob a lista de vertices de grau impar acrescentando arestas entre eles
-          foreach (int verticesGrauImpar in grauImpar)
-          {
-            if (verticesGrauImpar != gImpar && !grafo.VerificaExistenciaAresta(gImpar, verticesGrauImpar, true))
-              {
-                grafo.AdicionarAresta(gImpar, verticesGrauImpar, 0, true);
-                
-                // Remove os vértices de grau ímpar
-                grauImpar.Remove(gImpar);
-                grauImpar.Remove(verticesGrauImpar);
-                
-                break; // Sai do loop interno, já que gImpar foi tratado
-              }
-          }
+          grafo.AdicionarAresta(IdOrigem,IdDestino,0,true);
+          VerticeProcessado[IdOrigem] = VerticeProcessado[IdDestino] = true;
+          restantes -= 2;
+          break;
         }
       }
 
+      // Remove os que já foram processados
+      grauImpar.RemoveAll(e => VerticeProcessado[e]);
+
+      // Separa por duplas e conecta em vértices aleatórios com grau par
+      List<(int,int)> duplas = new();
+      (int,int) dupla = new(-1,-1);
+      foreach (int id in grauImpar) {
+        if (dupla.Item1 == -1) {
+          dupla.Item1 = id;
+        } else {
+          dupla.Item2 = id;
+          duplas.Add(dupla);
+          dupla = (-1,-1);
+        }
+      }
+
+      foreach ((int,int) duplaVertices in duplas)
+      {
+        int IdVertice;
+        do {
+          IdVertice = random.Next(0, grafo.Vertices.Count());
+        } while (grafo.Vertices[IdVertice].Grau % 2 != 0 ||                             // O vértice escolhido deve ter grau par
+                 grafo.Vertices[duplaVertices.Item1].Adjacencia.Contains(IdVertice) ||  // Não deve estar conectado a nenhum dos vértices de 
+                 grafo.Vertices[duplaVertices.Item2].Adjacencia.Contains(IdVertice));   // grau impar
+        
+        grafo.AdicionarAresta(IdVertice, duplaVertices.Item1, 0 ,true);
+        grafo.AdicionarAresta(IdVertice, duplaVertices.Item2, 0 ,true);
+      }
 
       return grafo;
     }
