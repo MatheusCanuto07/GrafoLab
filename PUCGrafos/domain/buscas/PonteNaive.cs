@@ -17,32 +17,34 @@ namespace PUCGrafos.domain.buscas
             Grafo copia = this.grafo.GetCopia();
             List<(int, int)> pontes = new List<(int, int)>();
 
+            int vertices_desconectados = grafo.Vertices.Where(x => x.Adjacencia.Count == 0).Count();
+
             for (int u = 0; u < copia.Vertices.Length; u++)
             {
                 foreach (int v in grafo.Vertices[u].Adjacencia)
                 {
-                    if (u < v) // Evita processar arestas duplicadas
-                    {
+                    //if (u < v) // Evita processar arestas duplicadas
+                    //{
                         copia.RemoverAresta(u,v, true);
 
-                        if (!IsConexo(copia))
+                        if (!IsConexo(copia, vertices_desconectados))
                         {
                             pontes.Add((u, v));
                         }
 
                         copia.AdicionarAresta(u, v, 0, true);
-                    }
+                    //}
                 }
             }
 
             return pontes;
         }
 
-        private bool IsConexo(Grafo grafo)
+        private bool IsConexo(Grafo grafo, int vertices_desconectados)
         {
             HashSet<int> visitados = new HashSet<int>();
             DFS(grafo, 0, visitados);
-            return visitados.Count == grafo.Vertices.Length;
+            return visitados.Count == ( grafo.Vertices.Length - vertices_desconectados );
         }
 
         private void DFS(Grafo grafo, int vertice, HashSet<int> visitados)
