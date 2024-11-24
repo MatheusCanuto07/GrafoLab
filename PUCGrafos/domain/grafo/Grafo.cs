@@ -30,11 +30,20 @@ namespace PUCGrafos.domain.grafo
 
         protected PonteNaive ObjBuscaPontesNaive;
         protected PonteTarjan ObjBuscaPontesTarjan;
-        protected AlgoritmoFleury ObjAlgoritmoFleury;
+        protected AlgoritmoFleury ObjFleuryTarjan;
+        protected AlgoritmoFleury ObjFleuryNaive;
 
         protected ArticulacaoTarjan ObjArticulacoesTarjan;
 
+        public ClockMeter clockMeter;
+        protected bool clockEnabled = false;
+
         public Grafo(int NumVertices) {
+
+            if (NumVertices <= 0) {
+                throw new ArgumentOutOfRangeException("O grafo deve ter ao menos um vértice");
+            }
+
             InicializaMembros(NumVertices);
 
             InicializaObjetoSaida();
@@ -253,6 +262,8 @@ namespace PUCGrafos.domain.grafo
             if (!ja_convertidos) {
                 IdOrigemA = Utilidades.GetIDVerticeInterno(IdOrigemA);
                 IdDestinoA = Utilidades.GetIDVerticeInterno(IdDestinoA);
+                IdOrigemB = Utilidades.GetIDVerticeInterno(IdOrigemB);
+                IdDestinoB = Utilidades.GetIDVerticeInterno(IdDestinoB);
             }
 
             if (!VerticeValido(IdOrigemA)  || 
@@ -263,8 +274,8 @@ namespace PUCGrafos.domain.grafo
                 throw new ExceptionVerticeInvalido();
             }
 
-            if (!VerificaExistenciaAresta(IdOrigemA, IdDestinoA) ||
-                !VerificaExistenciaAresta(IdOrigemB, IdDestinoB))
+            if (!VerificaExistenciaAresta(IdOrigemA, IdDestinoA, true) ||
+                !VerificaExistenciaAresta(IdOrigemB, IdDestinoB, true))
             {
                 return false;
             }
@@ -353,25 +364,11 @@ namespace PUCGrafos.domain.grafo
         }
 
         public List<(int,int)> BuscaPontesNaive() {
-            List<(int,int)> pontes = new();
-
-            foreach (var e in this.ObjBuscaPontesNaive.EncontrarPontes())
-            {
-                pontes.Add((e.Item1, e.Item2));
-            }
-
-            return pontes;
+            return this.ObjBuscaPontesNaive.EncontrarPontes();
         }
 
         public List<(int,int)> BuscaPontesTarjan() {
-            List<(int,int)> pontes = new();
-
-            foreach (var e in this.ObjBuscaPontesTarjan.EncontrarPontes())
-            {
-                pontes.Add((e.Item1, e.Item2));
-            }
-
-            return pontes;
+            return this.ObjBuscaPontesTarjan.EncontrarPontes();
         }
 
         public List<int> BuscarArticulacoes() {
@@ -405,6 +402,9 @@ namespace PUCGrafos.domain.grafo
             this.outputObject.ImprimirCaminhoEuleriano();
         }
 
+        public void ImprimirCaminhoEulerianoNaive() {
+            this.outputObject.ImprimirCaminhoEulerianoNaive();
+        }
         public void ImprimirListaAdjacencia(){
           this.outputObject.ImprimirListaAdjacencia();
         }
@@ -414,7 +414,23 @@ namespace PUCGrafos.domain.grafo
         }
 
         public List<int> GetCaminhoEuleriano() {
-            return this.ObjAlgoritmoFleury.GetCaminhoEuleriano();
+            return this.ObjFleuryTarjan.GetCaminhoEuleriano();
+        }
+
+        public List<int> GetCaminhoEulerianoNaive() {
+            return this.ObjFleuryNaive.GetCaminhoEuleriano();
+        }
+
+        public void EnableClock() {
+            this.clockEnabled = true;
+        }
+
+        public void DisableClock() {
+            this.clockEnabled = false;
+        }
+
+        public bool IsClockEnabled() {
+            return this.clockEnabled;
         }
 
         protected void InicializaObjetoDeBuscas()
@@ -428,7 +444,10 @@ namespace PUCGrafos.domain.grafo
 
             this.ObjBuscaPontesNaive  = new PonteNaive(this);
             this.ObjBuscaPontesTarjan = new PonteTarjan(this);
-            this.ObjAlgoritmoFleury = new AlgoritmoFleury(this);
+
+            this.ObjFleuryTarjan = new FleuryTarjan(this);
+            this.ObjFleuryNaive  = new FleuryNaive(this);
+
             this.ObjArticulacoesTarjan = new ArticulacaoTarjan(this);
         }
 
@@ -452,6 +471,8 @@ namespace PUCGrafos.domain.grafo
                     this.MatrizAdjacencia[i, j] = Constantes.ArestaInexistente;
                 }
             }
+
+            this.clockMeter = new ClockMeter();
         }
         public bool IsTodosVerticesAlcançaveis(ResultadoBusca[] resultado) { 
             return !resultado.Any(
@@ -467,9 +488,6 @@ namespace PUCGrafos.domain.grafo
             }
             return true;
         }
-
-       
-
 
     }
 }

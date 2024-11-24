@@ -8,7 +8,7 @@ namespace PUCGrafos.domain.buscas
 {
 
 
-    public class AlgoritmoFleury
+    public abstract class AlgoritmoFleury
     {
         protected Grafo grafo;
 
@@ -72,9 +72,11 @@ namespace PUCGrafos.domain.buscas
             return grafo.Vertices.First().Id;
         }
 
+        protected abstract List<(int, int)> BuscarPontes(Grafo g);
+
         private (int IdOrigem, int IdDestino) EscolherAresta(Grafo grafo, int verticeAtual, List<int> vizinhos)
         {
-            List<(int, int)> pontes = grafo.BuscaPontesTarjan();
+            List<(int, int)> pontes = this.BuscarPontes(grafo);
 
             foreach (int vertice in vizinhos)
             {

@@ -24,7 +24,7 @@ namespace PUCGrafos.domain.Saida
             Console.WriteLine("Articulações: ");
             foreach (int articulacao in this.grafo.BuscarArticulacoes())
             {
-                Console.Write($"{Utilidades.GetIDVerticeExterno(articulacao)}, ");
+                Console.Write($"{grafo.Vertices[articulacao].GetRotulo()} ");
             }
             Console.WriteLine();
         }
@@ -36,11 +36,41 @@ namespace PUCGrafos.domain.Saida
 
         public void ImprimirCaminhoEuleriano()
         {
-            List<int> caminho = grafo.GetCaminhoEuleriano();
+            List<int> caminho = new();
+            if (grafo.IsClockEnabled()) {
+                grafo.clockMeter.Start();
+                caminho = grafo.GetCaminhoEuleriano();
+                grafo.clockMeter.Stop();
+                Console.WriteLine($"[Fleury Tarjan] Duração: {grafo.clockMeter.ElapsedMilliseconds} ms");
+            } else {
+                caminho = grafo.GetCaminhoEuleriano();
+            }
 
+            Console.WriteLine("Caminho Euleriano Método Fleury Tarjan: ");
             foreach (int vertice in caminho)
             {
-                Console.Write($"{Utilidades.GetIDVerticeExterno(vertice)}, ");
+                Console.Write($"{grafo.Vertices[vertice].GetRotulo()} ");
+            }
+
+            Console.WriteLine();
+        }
+
+        public void ImprimirCaminhoEulerianoNaive()
+        {
+            List<int> caminho = new();
+            if (grafo.IsClockEnabled()) {
+                grafo.clockMeter.Start();
+                caminho = grafo.GetCaminhoEulerianoNaive();
+                grafo.clockMeter.Stop();
+                Console.WriteLine($"[Fleury Naive] Duração: {grafo.clockMeter.ElapsedMilliseconds} ms");
+            } else {
+                caminho = grafo.GetCaminhoEulerianoNaive();
+            }
+
+            Console.WriteLine("Caminho Euleriano Método Fleury Naive: ");
+            foreach (int vertice in caminho)
+            {
+                Console.Write($"{grafo.Vertices[vertice].GetRotulo()} ");
             }
 
             Console.WriteLine();
