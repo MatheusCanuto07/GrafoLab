@@ -2,6 +2,7 @@
 using PUCGrafos.domain.grafo.gerarGrafo;
 using PUCGrafos.domain.grafo.grafo_simples.grafo_simples_direcionado;
 using PUCGrafos.domain.grafo.grafo_simples.grafo_simples_nao_direcionado;
+using PUCGrafos.domain.utilidades;
 
 #region Manipulacao
 // Funções básicas para manipulação de grafos em ambas representações, incluindo:
@@ -283,4 +284,16 @@ void DemonstracaoGrafoAleatorio() {
 }
 
 //DemonstracaoGrafoAleatorio()
+
+void DemonstracaoGrafoEulerianoAleatorio() {
+
+    GrafoNaoDirecionado g = gerarGrafoNaoDirecionado.CriaAleatorioGrafoEuleriano(100);
+
+    Utilidades.SalvaEmCSV(g);
+
+    g.ImprimirCaminhoEuleriano();
+
+}
+
+DemonstracaoGrafoEulerianoAleatorio();
 
