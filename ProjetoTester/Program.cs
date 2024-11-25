@@ -11,6 +11,9 @@ using PUCGrafos.domain.utilidades;
 void DemonstracaoCriarGrafo() {
     Grafo grafoNaoDirecionado = new GrafoNaoDirecionado(15);
     Grafo grafoDirecionado = new GrafoDirecionado(15);
+
+    grafoDirecionado.ImprimirListaAdjacencia();
+    grafoNaoDirecionado.ImprimirListaAdjacencia();
 }
 
 //DemonstracaoCriarGrafo();
@@ -24,6 +27,9 @@ void CriarRemoverArestas() {
     Grafo grafoDirecionado = new GrafoDirecionado(3);
     grafoDirecionado.AdicionarAresta(1,2);
     grafoDirecionado.AdicionarAresta(2,3);
+
+    grafoDirecionado.ImprimirListaAdjacencia();
+    grafoNaoDirecionado.ImprimirListaAdjacencia();
 }
 
 //CriarRemoverArestas();
@@ -234,7 +240,7 @@ void ImprimirRepresentações() {
     grafoNaoDirecionado.ImprimirListaAdjacencia();
 }
 
-//ImprimirRepresentações()
+ImprimirRepresentações();
 
 #endregion
 
@@ -295,5 +301,5 @@ void DemonstracaoGrafoEulerianoAleatorio() {
 
 }
 
-DemonstracaoGrafoEulerianoAleatorio();
+//DemonstracaoGrafoEulerianoAleatorio();
 
