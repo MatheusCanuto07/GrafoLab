@@ -27,4 +27,4 @@ Exporta os grafos criados para formatos suportados pelo Gephi, como:
 
 ## Requisitos
 
-- **Python 3.x**
+- **C# 8.x.x**
