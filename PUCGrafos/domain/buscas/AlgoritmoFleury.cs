@@ -33,10 +33,10 @@ namespace PUCGrafos.domain.buscas
 
             while (copia.GetQuantidadeArestas() != 0)
             {
-                List<int> vizinhos = copia.Vertices[verticeAtual].Adjacencia;
+                //List<int> vizinhos = copia.Vertices[verticeAtual].Adjacencia;
 
                 // Escolhe uma aresta para remover, priorizando as não-pontes
-                (int IdOrigem, int IdDestino) arestaEscolhida = EscolherAresta(copia, verticeAtual, vizinhos);
+                (int IdOrigem, int IdDestino) arestaEscolhida = EscolherAresta(copia, verticeAtual, copia.Vertices[verticeAtual].Adjacencia);
 
                 // Adiciona o vértice ao caminho e remove a aresta
                 caminho.Add(verticeAtual);

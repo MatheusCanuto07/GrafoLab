@@ -44,15 +44,14 @@ namespace PUCGrafos.domain.Saida
                 Console.WriteLine($"[Fleury Tarjan] Duração: {grafo.clockMeter.ElapsedMilliseconds} ms");
             } else {
                 caminho = grafo.GetCaminhoEuleriano();
-            }
+                Console.WriteLine("Caminho Euleriano Método Fleury Tarjan: ");
+                foreach (int vertice in caminho)
+                {
+                    Console.Write($"{grafo.Vertices[vertice].GetRotulo()} ");
+                }
 
-            Console.WriteLine("Caminho Euleriano Método Fleury Tarjan: ");
-            foreach (int vertice in caminho)
-            {
-                Console.Write($"{grafo.Vertices[vertice].GetRotulo()} ");
+                Console.WriteLine();
             }
-
-            Console.WriteLine();
         }
 
         public void ImprimirCaminhoEulerianoNaive()
@@ -64,16 +63,14 @@ namespace PUCGrafos.domain.Saida
                 grafo.clockMeter.Stop();
                 Console.WriteLine($"[Fleury Naive] Duração: {grafo.clockMeter.ElapsedMilliseconds} ms");
             } else {
+                Console.WriteLine("Caminho Euleriano Método Fleury Naive: ");
                 caminho = grafo.GetCaminhoEulerianoNaive();
+                foreach (int vertice in caminho)
+                {
+                    Console.Write($"{grafo.Vertices[vertice].GetRotulo()} ");
+                }
+                Console.WriteLine();
             }
-
-            Console.WriteLine("Caminho Euleriano Método Fleury Naive: ");
-            foreach (int vertice in caminho)
-            {
-                Console.Write($"{grafo.Vertices[vertice].GetRotulo()} ");
-            }
-
-            Console.WriteLine();
         }
 
         public void ImprimirDFS()
