@@ -1,6 +1,6 @@
 # Biblioteca de Manipulação de Grafos
 
-Este projeto consiste na implementação de uma biblioteca para manipulação de grafos em **Python**, permitindo a criação, manipulação e exportação de grafos em diferentes representações. A biblioteca também oferece algoritmos para verificação de propriedades e análise de conectividade, com suporte à exportação de grafos para visualização no **Gephi**.
+Este projeto consiste na implementação de uma biblioteca para manipulação de grafos em **C#**, permitindo a criação, manipulação e exportação de grafos em diferentes representações. A biblioteca também oferece algoritmos para verificação de propriedades e análise de conectividade, com suporte à exportação de grafos para visualização no **Gephi**.
 
 ## Funcionalidades
 
